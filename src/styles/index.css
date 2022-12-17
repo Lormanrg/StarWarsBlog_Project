@@ -1,18 +1,19 @@
-div.scrollmenu {
-  display: inline-block;
-  background-color: #333;
-  overflow: auto;
-  white-space: nowrap;
+.container {
+  margin-bottom: 100px;
+}
+.home-card-list {
+  gap: 10px;
+  border: 1px solid black;
+  display: flex;
+  overflow-x: scroll !important;
 }
 
-div.scrollmenu div {
-  display: inline-block;
-  color: white;
-  text-align: center;
-  padding: 14px;
-  text-decoration: none;
+.card {
+  border: 1px solid black;
+  min-width: 300px;
 }
 
-/* div.scrollmenu div:hover {
-  background-color: #777;
-} */
+.div {
+  display: flex;
+  justify-content: space-between;
+}

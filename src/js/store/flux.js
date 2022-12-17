@@ -4,8 +4,9 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       urlBase: "https://swapi.tech/api/",
-      starWarsCharacters: [],
-      starWarsPlanets: [],
+      people: [],
+      planets: [],
+      favorites: [],
     },
     actions: {
       getStarWarsCharacters: async () => {
@@ -19,12 +20,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
               setStore({
                 ...getStore(),
-                starWarsCharacters: [
-                  ...getStore().starWarsCharacters,
-                  data2.result,
-                ],
+                people: [...getStore().people, data2.result],
               });
-            } catch (error) {}
+            } catch (error) {
+              console.log(error);
+            }
           });
         } catch (error) {
           console.log(`${error}error`);
@@ -42,7 +42,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
               setStore({
                 ...getStore(),
-                starWarsPlanets: [...getStore().starWarsPlanets, data2.result],
+                planets: [...getStore().planets, data2.result],
               });
             } catch (error) {
               `${error}error`;
@@ -51,6 +51,21 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log(`${error}error`);
         }
+      },
+      addCard: (favorites) => {
+        let fav = getStore().favorites.some(
+          (item) => item._id == favorites._id
+        );
+        if (!fav) {
+          setStore({
+            favorites: [...getStore().favorites, favorites],
+          });
+        }
+      },
+
+      delFavo: (id) => {
+        let delFav = getStore().favorites.filter((item) => item._id != id);
+        setStore({ favorites: delFav });
       },
     },
   };
