@@ -1,31 +1,27 @@
 import React, { useContext } from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import { Context } from "../store/appContext.js";
 
-export const PlanetCard = (props) => {
+export const Vehicles = (props) => {
   const { store, actions } = useContext(Context);
-  const { planets } = store;
-  const { nature } = props;
+  const { vehicles } = store;
+  const { nature, name } = props;
 
   return (
     <>
-      {planets.map((item) => {
+      {vehicles.map((item) => {
         return (
           <div key={item._id} className="card ">
             <img
-              src={`https://starwars-visualguide.com/assets/img/planets/${item.uid}.jpg`}
-              className="card-img-top card-img-top-error"
+              src={`https://starwars-visualguide.com/assets/img/vehicles/${item.uid}.jpg`}
+              className="card-img-top"
               alt="..."
-              onError={(e) =>
-                (e.target.src =
-                  "https://starwars-visualguide.com/assets/img/placeholder.jpg")
-              }
             />
             <div className="card-body">
               <h5 className="card-title">{`Name: ${item.properties.name}`}</h5>
-              <p className="card-text">{`Population: ${item.properties.population}`}</p>
-              <p className="card-text">{`Gravity: ${item.properties.gravity}`}</p>
-              <p className="card-text">{`Climate: ${item.properties.climate}`}</p>
+              <p className="card-text">{`Model: ${item.properties.model}`}</p>
+              <p className="card-text">{`Capacity: ${item.properties.cargo_capacity}`}</p>
+              <p className="card-text">{`Description: ${item.description}`}</p>
               <div className="div">
                 <Link to={`/${nature}/${item._id}`} className="btn btn-primary">
                   Learn more!
@@ -45,7 +41,11 @@ export const PlanetCard = (props) => {
                     }
                   }}
                 >
-                  <i className="fas fa-heart"></i>
+                  {store.vehicles.includes(item._id) ? (
+                    <i className="far fa-heart"></i>
+                  ) : (
+                    <i className="fas fa-heart"></i>
+                  )}
                 </button>
               </div>
             </div>

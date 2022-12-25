@@ -7,7 +7,7 @@ export const CharactersCard = (props) => {
   const { nature, name } = props;
   const { store, actions } = useContext(Context);
   const { people } = store;
-  // const [active, setActive] = useState(false);
+  const [active, setActive] = useState(false);
 
   return (
     <>
@@ -23,26 +23,27 @@ export const CharactersCard = (props) => {
               <h5 className="card-title">{`Name: ${item.properties.name}`}</h5>
               <p className="card-text">{`Gender: ${item.properties.gender}`}</p>
               <p className="card-text">{`Hair color: ${item.properties.hair_color}`}</p>
+              <p className="card-text">{`Eye color: ${item.properties.eye_color}`}</p>
               <div className="div">
                 <Link to={`/${nature}/${item._id}`} className="btn btn-primary">
                   Learn more!
                 </Link>
                 <button
                   type="button"
-                  className={`btn btn-outline-warning 
+                  className={`btn ${
+                    store.favorites.includes(item)
+                      ? "btn-warning"
+                      : "btn-outline-warning"
+                  } 
                   `}
-                  data-bs-toggle="button"
+                  // data-bs-toggle="button"
                   onClick={() => {
                     {
                       actions.addCard(item, name);
                     }
                   }}
                 >
-                  {store.favorites.includes(item._id) ? (
-                    <i className="far fa-heart"></i>
-                  ) : (
-                    <i className="fas fa-heart"></i>
-                  )}
+                  <i className="fas fa-heart"></i>
                 </button>
               </div>
             </div>
